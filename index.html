@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Download Test</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        .download-btn {
+            background: #2ea44f; color: white; padding: 15px 25px;
+            text-decoration: none; border-radius: 6px; font-weight: bold;
+        }
+        .download-btn:hover { background: #2c974b; }
+    </style>
+</head>
+<body>
+
+    <h1>My Friend's Video</h1>
+    <a href="https://drive.google.com/file/d/1GwPw4ozq2ACSP7OsWA9dcfLzWC8kbMFt/view?usp=sharing" 
+       class="drive-download" 
+       download>
+       Download Video
+    </a>
+
+    <script>
+      // This script automatically converts the link when the page loads
+      document.querySelectorAll('.drive-download').forEach(link => {
+        const match = link.href.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+          link.href = `https://drive.google.com/uc?export=download&id=${match[1]}`;
+        }
+      });
+    </script>
+
+</body>
+</html>
