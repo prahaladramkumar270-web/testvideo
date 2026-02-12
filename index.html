@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Video Download Test</title>
+    <title>Video Downloads</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        /* A simple button style for her site */
         .download-btn {
-            background: #2ea44f; color: white; padding: 15px 25px;
-            text-decoration: none; border-radius: 6px; font-weight: bold;
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: sans-serif;
         }
-        .download-btn:hover { background: #2c974b; }
+        .download-btn:hover { background: #0056b3; }
     </style>
 </head>
 <body>
 
-    <h1>Testing automatic download</h1>
+    <h1>Download My Videos</h1>
+
+    <!-- 
+      She just pastes the NORMAL share link here. 
+      The class "drive-download" tells the script to fix it.
+    -->
     <a href="https://drive.google.com/file/d/1GwPw4ozq2ACSP7OsWA9dcfLzWC8kbMFt/view?usp=sharing" 
-       class="drive-download" 
-       download>
-       Download Video
+       class="drive-download">
+       Download Video (MP4)
     </a>
 
     <script>
-      // This script automatically converts the link when the page loads
+      // THE AUTO-CONVERTER SCRIPT
       document.querySelectorAll('.drive-download').forEach(link => {
-        const match = link.href.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        const originalUrl = link.href;
+        
+        // Extract the ID from the Google Drive URL
+        const match = originalUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        
         if (match && match[1]) {
-          link.href = `https://drive.google.com/uc?export=download&id=${match[1]}`;
+          const fileId = match[1];
+          
+          // REWRITE THE LINK: 
+          // Instead of going to Google, it goes to our redirector file
+          link.href = `download.html?id=${fileId}`;
+          
+          // This helps force mobile browsers to stay in-app
+          link.setAttribute('target', '_self'); 
         }
       });
     </script>
